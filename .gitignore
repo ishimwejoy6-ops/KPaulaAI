@@ -1,0 +1,9 @@
+.env
+venv/
+__pycache__/
+*.pyc
+kpaula.db
+kpaula_memory.db
+ai_backup*.py
+app_backup*.py
+templatescat/

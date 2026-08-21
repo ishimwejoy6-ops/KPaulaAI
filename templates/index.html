@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K.Paula AI</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#212121;
+    color:#ececec;
+}
+
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+
+.header{
+    height:60px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    padding:0 16px;
+    background:#212121;
+    border-bottom:1px solid #303030;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#2f2f2f;
+    font-size:19px;
+}
+
+.brand-name{
+    font-size:16px;
+    font-weight:600;
+}
+
+.brand-name span{
+    color:#39ff14;
+}
+
+.online{
+    margin-left:auto;
+    font-size:11px;
+    color:#7ee787;
+}
+
+/* CHAT */
+
+.chat{
+    flex:1;
+    overflow-y:auto;
+    padding-bottom:25px;
+    scroll-behavior:smooth;
+}
+
+.conversation{
+    width:100%;
+    max-width:900px;
+    margin:auto;
+}
+
+/* WELCOME */
+
+.welcome{
+    min-height:calc(100vh - 170px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px 20px;
+    text-align:center;
+}
+
+.welcome-icon{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#2f2f2f;
+    font-size:35px;
+    margin-bottom:20px;
+}
+
+.welcome h1{
+    font-size:30px;
+    margin:0 0 10px;
+}
+
+.welcome h1 span{
+    color:#39ff14;
+}
+
+.welcome p{
+    max-width:580px;
+    margin:5px auto;
+    color:#a8a8a8;
+    line-height:1.6;
+}
+
+.creator{
+    margin-top:10px!important;
+    font-size:13px;
+    color:#777!important;
+}
+
+.creator strong{
+    color:#9be88c;
+}
+
+/* QUICK */
+
+.quick-actions{
+    width:100%;
+    max-width:650px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:28px;
+}
+
+.quick{
+    background:#2f2f2f;
+    border:1px solid #3b3b3b;
+    border-radius:12px;
+    padding:14px;
+    text-align:left;
+    color:#d8d8d8;
+    cursor:pointer;
+}
+
+.quick:hover{
+    background:#363636;
+    border-color:#555;
+}
+
+.quick-title{
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.quick-text{
+    font-size:12px;
+    color:#999;
+}
+
+/* MESSAGES */
+
+.message{
+    width:100%;
+    padding:20px;
+    display:flex;
+    animation:appear .18s ease;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(4px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+.message.ai{
+    justify-content:flex-start;
+}
+
+.user .message-content{
+    max-width:75%;
+    background:#303030;
+    padding:11px 15px;
+    border-radius:18px;
+    color:#f1f1f1;
+    line-height:1.5;
+}
+
+.ai .message-content{
+    width:100%;
+    max-width:760px;
+    color:#ececec;
+    line-height:1.65;
+}
+
+.ai-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+    font-size:13px;
+    color:#aaa;
+}
+
+.ai-icon{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#2f2f2f;
+    font-size:14px;
+}
+
+/* MARKDOWN */
+
+.ai-text p{
+    margin:7px 0;
+}
+
+.ai-text h1,
+.ai-text h2,
+.ai-text h3{
+    margin:18px 0 8px;
+    color:#fff;
+}
+
+.ai-text ul,
+.ai-text ol{
+    padding-left:24px;
+}
+
+.ai-text li{
+    margin:6px 0;
+}
+
+.ai-text strong{
+    color:#fff;
+}
+
+.ai-text a{
+    color:#7ee787;
+}
+
+/* CODE */
+
+.code-wrapper{
+    margin:12px 0;
+    background:#111;
+    border:1px solid #333;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.code-top{
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 10px;
+    background:#181818;
+    color:#888;
+    font-size:11px;
+}
+
+.copy-btn{
+    border:0;
+    background:#303030;
+    color:#ccc;
+    border-radius:6px;
+    padding:5px 9px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+pre{
+    margin:0;
+    padding:14px;
+    overflow-x:auto;
+    font-size:13px;
+    line-height:1.55;
+}
+
+code{
+    font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+}
+
+/* TYPING */
+
+.typing{
+    display:none;
+    max-width:900px;
+    margin:auto;
+    padding:0 20px 12px;
+    color:#888;
+    font-size:12px;
+}
+
+/* INPUT */
+
+.input-section{
+    flex-shrink:0;
+    padding:10px 15px 14px;
+    background:#212121;
+}
+
+.input-container{
+    width:100%;
+    max-width:850px;
+    margin:auto;
+}
+
+.input-box{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:6px 7px 6px 8px;
+    background:#2f2f2f;
+    border:1px solid #454545;
+    border-radius:25px;
+}
+
+.icon-btn{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    color:#bbb;
+    font-size:19px;
+    cursor:pointer;
+}
+
+.icon-btn:hover{
+    background:#404040;
+    color:white;
+}
+
+#message{
+    flex:1;
+    min-width:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#fff;
+    font-size:15px;
+}
+
+#message::placeholder{
+    color:#888;
+}
+
+#send{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border:0;
+    border-radius:50%;
+    background:#ececec;
+    color:#202020;
+    font-size:18px;
+    cursor:pointer;
+}
+
+#send:disabled{
+    opacity:.4;
+}
+
+/* ATTACH MENU */
+
+.attach-menu{
+    position:fixed;
+    bottom:82px;
+    left:15px;
+    display:none;
+    flex-direction:column;
+    gap:7px;
+    padding:8px;
+    background:#2f2f2f;
+    border:1px solid #444;
+    border-radius:14px;
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+
+.attach-item{
+    border:0;
+    background:#383838;
+    color:#eee;
+    padding:11px 15px;
+    border-radius:10px;
+    text-align:left;
+    cursor:pointer;
+}
+
+.attach-item:hover{
+    background:#454545;
+}
+
+/* PHOTO PREVIEW */
+
+.preview{
+    display:none;
+    position:relative;
+    margin-bottom:8px;
+}
+
+.preview img{
+    width:75px;
+    height:75px;
+    object-fit:cover;
+    border-radius:12px;
+    border:1px solid #555;
+}
+
+.remove-photo{
+    position:absolute;
+    top:-6px;
+    left:65px;
+    width:22px;
+    height:22px;
+    border:0;
+    border-radius:50%;
+    background:#e74c3c;
+    color:white;
+    cursor:pointer;
+}
+
+.disclaimer{
+    text-align:center;
+    margin-top:7px;
+    font-size:10px;
+    color:#666;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .header{
+        height:58px;
+    }
+
+    .message{
+        padding:16px 13px;
+    }
+
+    .user .message-content{
+        max-width:84%;
+    }
+
+    .welcome{
+        min-height:calc(100vh - 160px);
+        padding:20px 15px;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .welcome-icon{
+        width:64px;
+        height:64px;
+        font-size:30px;
+    }
+
+    .quick-actions{
+        grid-template-columns:1fr;
+    }
+
+    .ai .message-content{
+        max-width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🤖
+        </div>
+
+        <div class="brand-name">
+            K.Paula <span>AI</span>
+        </div>
+
+    </div>
+
+        ● Online
+</div><div style="
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+">
+
+    <button
+        onclick="newChat()"
+        style="
+            border:0;
+            background:#2f2f2f;
+            color:#ddd;
+            border-radius:10px;
+            padding:8px 11px;
+            cursor:pointer;
+            font-size:12px;
+        "
+    >
+        ✨ New Chat
+    </button>
+
+    <div class="online">
+        ● Online
+    </div>
+
+</div>
+
+</header>
+
+
+<main id="chat" class="chat">
+
+<div class="conversation">
+
+<section id="welcome" class="welcome">
+
+    <div class="welcome-icon">
+        🤖
+    </div>
+
+    <h1>
+        Hi, I'm K.Paula <span>AI</span>
+    </h1>
+
+    <p>
+        I'm an intelligent AI assistant created by
+        <strong>Ishimwe Joy</strong>.
+    </p>
+
+    <p>
+        I can help you learn, code, solve problems,
+        generate ideas and explore many topics. 🚀
+    </p>
+
+    <p class="creator">
+        Created by <strong>Ishimwe Joy</strong>
+        • Powered by Groq
+    </p>
+
+    <div class="quick-actions">
+
+        <div class="quick"
+             onclick="quickMessage('Who are you and who created you?')">
+
+            <div class="quick-title">
+                👋 About K.Paula AI
+            </div>
+
+            <div class="quick-text">
+                Learn who I am
+            </div>
+
+        </div>
+
+        <div class="quick"
+             onclick="quickMessage('What can you help me with?')">
+
+            <div class="quick-title">
+                💡 What can you do?
+            </div>
+
+            <div class="quick-text">
+                Explore my abilities
+            </div>
+
+        </div>
+
+        <div class="quick"
+             onclick="quickMessage('Teach me something useful about programming')">
+
+            <div class="quick-title">
+                💻 Learn programming
+            </div>
+
+            <div class="quick-text">
+                Start learning
+            </div>
+
+        </div>
+
+        <div class="quick"
+             onclick="quickMessage('Give me an interesting technology project idea')">
+
+            <div class="quick-title">
+                🚀 Project ideas
+            </div>
+
+            <div class="quick-text">
+                Build something new
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<div id="typing" class="typing">
+    🤖 K.Paula AI is thinking...
+</div>
+
+
+<section class="input-section">
+
+<div class="input-container">
+
+    <!-- PHOTO PREVIEW -->
+
+    <div id="preview" class="preview">
+
+        <img id="previewImage">
+
+        <button
+            class="remove-photo"
+            onclick="removePhoto()">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- ATTACH MENU -->
+
+    <div id="attachMenu" class="attach-menu">
+
+        <button
+            class="attach-item"
+            onclick="openCamera()">
+            📷 Take photo
+        </button>
+
+        <button
+            class="attach-item"
+            onclick="openGallery()">
+            🖼️ Choose photo
+        </button>
+
+    </div>
+
+
+    <div class="input-box">
+
+        <button
+            class="icon-btn"
+            onclick="toggleAttachMenu()"
+            aria-label="Attach">
+            📎
+        </button>
+
+        <input
+            id="message"
+            type="text"
+            placeholder="Message K.Paula AI..."
+            autocomplete="off">
+
+        <button
+            class="icon-btn"
+            onclick="startVoice()"
+            aria-label="Voice">
+            🎤
+        </button>
+
+        <button
+            id="send"
+            onclick="sendMessage()"
+            aria-label="Send">
+            ↑
+        </button>
+
+    </div>
+
+    <div class="disclaimer">
+        K.Paula AI can make mistakes. Check important information.
+    </div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- HIDDEN FILE INPUTS -->
+
+<input
+    id="cameraInput"
+    type="file"
+    accept="image/*"
+    capture="environment"
+    hidden>
+
+<input
+    id="galleryInput"
+    type="file"
+    accept="image/*"
+    hidden>
+
+
+<script>
+
+const input =
+    document.getElementById("message");
+
+const chat =
+    document.getElementById("chat");
+
+const welcome =
+    document.getElementById("welcome");
+
+const typing =
+    document.getElementById("typing");
+
+const sendButton =
+    document.getElementById("send");
+
+const attachMenu =
+    document.getElementById("attachMenu");
+
+const cameraInput =
+    document.getElementById("cameraInput");
+
+const galleryInput =
+    document.getElementById("galleryInput");
+
+const preview =
+    document.getElementById("preview");
+
+const previewImage =
+    document.getElementById("previewImage");
+
+
+let selectedPhoto = null;
+
+
+/* ================= MARKDOWN ================= */
+
+function markdownToHTML(text){
+
+    let html = text;
+
+    html = html
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+
+    html = html.replace(
+        /```(\w+)?\n?([\s\S]*?)```/g,
+        function(match,language,code){
+
+            const lang =
+                language || "code";
+
+            const encoded =
+                encodeURIComponent(
+                    code.trim()
+                );
+
+            return `
+            <div class="code-wrapper">
+
+                <div class="code-top">
+
+                    <span>${lang}</span>
+
+                    <button
+                        class="copy-btn"
+                        onclick="copyCode(this,'${encoded}')">
+                        Copy
+                    </button>
+
+                </div>
+
+                <pre><code>${code.trim()}</code></pre>
+
+            </div>`;
+        }
+    );
+
+    html = html.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+    html = html.replace(
+        /`([^`]+)`/g,
+        "<code>$1</code>"
+    );
+
+    html = html.replace(
+        /^### (.*)$/gm,
+        "<h3>$1</h3>"
+    );
+
+    html = html.replace(
+        /^## (.*)$/gm,
+        "<h2>$1</h2>"
+    );
+
+    html = html.replace(
+        /^# (.*)$/gm,
+        "<h1>$1</h1>"
+    );
+
+    html = html.replace(
+        /^[-*]\s+(.*)$/gm,
+        "• $1"
+    );
+
+    html = html.replace(
+        /\n/g,
+        "<br>"
+    );
+
+    return html;
+}
+
+
+/* ================= ADD MESSAGE ================= */
+
+function addMessage(text,type){
+
+    if(welcome){
+        welcome.style.display="none";
+    }
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "message " + type;
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+    if(type === "ai"){
+
+        content.innerHTML = `
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <span>
+                    K.Paula AI
+                </span>
+
+            </div>
+
+            <div class="ai-text">
+                ${markdownToHTML(text)}
+            </div>
+
+            <div style="
+                margin-top:10px;
+                display:flex;
+                gap:7px;
+            ">
+
+                <button
+                    class="copy-btn"
+                    onclick="speakText(this)"
+                    data-text="${encodeURIComponent(text)}">
+                    🔊 Read aloud
+                </button>
+
+                <button
+                    class="copy-btn"
+                    onclick="stopSpeaking()">
+                    ⏹️ Stop
+                </button>
+
+            </div>
+
+        `;
+
+    }else{
+
+        content.textContent =
+            text;
+
+    }
+
+    row.appendChild(content);
+
+    chat
+        .querySelector(".conversation")
+        .appendChild(row);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+    return content;
+}
+
+
+/* ================= VOICE RESPONSE ================= */
+
+function speakText(button){
+
+    try{
+
+        stopSpeaking();
+
+        const encoded =
+            button.getAttribute("data-text");
+
+        const text =
+            decodeURIComponent(encoded);
+
+        if(!text){
+            return;
+        }
+
+        const speech =
+            new SpeechSynthesisUtterance(text);
+
+        speech.lang = "en-US";
+
+        speech.rate = 0.95;
+
+        speech.pitch = 1;
+
+        speech.volume = 1;
+
+        speech.onstart = function(){
+
+            button.textContent =
+                "🔊 Speaking...";
+
+        };
+
+        speech.onend = function(){
+
+            button.textContent =
+                "🔊 Read aloud";
+
+        };
+
+        speech.onerror = function(){
+
+            button.textContent =
+                "🔊 Read aloud";
+
+        };
+
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }catch(error){
+
+        console.log(
+            "Speech error:",
+            error
+        );
+
+    }
+
+}
+
+
+function stopSpeaking(){
+
+    if(
+        "speechSynthesis" in window
+    ){
+
+        window.speechSynthesis.cancel();
+
+    }
+
+}
+
+
+/* ================= QUICK MESSAGE ================= */
+
+function quickMessage(text){
+
+    input.value = text;
+
+    sendMessage();
+
+}
+
+
+/* ================= ATTACH MENU ================= */
+
+function toggleAttachMenu(){
+
+    if(
+        attachMenu.style.display ===
+        "flex"
+    ){
+
+        attachMenu.style.display =
+            "none";
+
+    }else{
+
+        attachMenu.style.display =
+            "flex";
+
+    }
+
+}
+
+
+function openCamera(){
+
+    attachMenu.style.display =
+        "none";
+
+    cameraInput.click();
+
+}
+
+
+function openGallery(){
+
+    attachMenu.style.display =
+        "none";
+
+    galleryInput.click();
+
+}
+
+
+/* ================= PHOTO ================= */
+
+function handlePhoto(file){
+
+    if(!file){
+        return;
+    }
+
+    if(!file.type.startsWith("image/")){
+
+        alert(
+            "Please choose an image."
+        );
+
+        return;
+    }
+
+    selectedPhoto = file;
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event){
+
+            previewImage.src =
+                event.target.result;
+
+            preview.style.display =
+                "block";
+
+        };
+
+    reader.readAsDataURL(file);
+
+}
+
+
+cameraInput.addEventListener(
+    "change",
+    function(){
+
+        handlePhoto(
+            this.files[0]
+        );
+
+    }
+);
+
+
+galleryInput.addEventListener(
+    "change",
+    function(){
+
+        handlePhoto(
+            this.files[0]
+        );
+
+    }
+);
+
+
+function removePhoto(){
+
+    selectedPhoto = null;
+
+    previewImage.src = "";
+
+    preview.style.display =
+        "none";
+
+    cameraInput.value = "";
+
+    galleryInput.value = "";
+
+}
+
+
+/* ================= VOICE ================= */
+
+function startVoice(){
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if(!SpeechRecognition){
+
+        alert(
+            "Voice input is not supported by this browser."
+        );
+
+        return;
+    }
+
+    const recognition =
+        new SpeechRecognition();
+
+    recognition.lang =
+        "en-US";
+
+    recognition.interimResults =
+        false;
+
+    recognition.continuous =
+        false;
+
+    recognition.onstart =
+        function(){
+
+            input.placeholder =
+                "🎤 Listening...";
+
+        };
+
+    recognition.onresult =
+        function(event){
+
+            const text =
+                event.results[0][0].transcript;
+
+            input.value =
+                text;
+
+        };
+
+    recognition.onerror =
+        function(){
+
+            input.placeholder =
+                "Message K.Paula AI...";
+
+        };
+
+    recognition.onend =
+        function(){
+
+            input.placeholder =
+                "Message K.Paula AI...";
+
+        };
+
+    recognition.start();
+
+}
+
+
+/* ================= COPY CODE ================= */
+
+async function copyCode(button,encoded){
+
+    try{
+
+        const code =
+            decodeURIComponent(encoded);
+
+        await navigator.clipboard
+            .writeText(code);
+
+        button.textContent =
+            "Copied ✓";
+
+        setTimeout(
+            function(){
+
+                button.textContent =
+                    "Copy";
+
+            },
+            1500
+        );
+
+    }catch(error){
+
+        button.textContent =
+            "Copy failed";
+
+    }
+
+}
+
+
+/* ================= SEND ================= */
+
+async function sendMessage(){
+
+    const message = input.value.trim();
+
+    if(!message && !selectedPhoto){
+        return;
+    }
+
+    addMessage(
+        selectedPhoto
+            ? "📷 " + selectedPhoto.name +
+              (message ? "\n" + message : "")
+            : message,
+        "user"
+    );
+
+    input.value = "";
+
+    sendButton.disabled = true;
+    typing.style.display = "block";
+
+    const thinking = addMessage(
+        "🤔 K.Paula AI is thinking...",
+        "ai"
+    );
+
+    try {
+
+        const formData = new FormData();
+
+        formData.append(
+            "message",
+            message
+        );
+
+        if(selectedPhoto){
+
+            formData.append(
+                "image",
+                selectedPhoto
+            );
+
+        }
+
+        const response = await fetch(
+            "/chat",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if(response.ok){
+
+            thinking.innerHTML = `
+
+                <div class="ai-header">
+
+                    <div class="ai-icon">
+                        🤖
+                    </div>
+
+                    <span>
+                        K.Paula AI
+                    </span>
+
+                </div>
+
+                <div class="ai-text">
+                    ${markdownToHTML(
+                        data.reply ||
+                        "I didn't receive a response."
+                    )}
+                </div>
+
+                <div style="
+                    margin-top:10px;
+                    display:flex;
+                    gap:7px;
+                ">
+
+                    <button
+                        class="copy-btn"
+                        onclick="speakText(this)"
+                        data-text="${encodeURIComponent(
+                            data.reply || ""
+                        )}">
+                        🔊 Read aloud
+                    </button>
+
+                    <button
+                        class="copy-btn"
+                        onclick="stopSpeaking()">
+                        ⏹️ Stop
+                    </button>
+
+                </div>
+
+            `;
+
+        }else{
+
+            thinking.innerHTML = `
+
+                <div class="ai-header">
+
+                    <div class="ai-icon">
+                        🤖
+                    </div>
+
+                    <span>
+                        K.Paula AI
+                    </span>
+
+                </div>
+
+                <div class="ai-text">
+                    ⚠️ ${
+                        data.reply ||
+                        "Something went wrong."
+                    }
+                </div>
+
+            `;
+
+        }
+
+    } catch(error) {
+
+        console.error(error);
+
+        thinking.innerHTML = `
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <span>
+                    K.Paula AI
+                </span>
+
+            </div>
+
+            <div class="ai-text">
+                ❌ I couldn't connect to K.Paula AI.
+                Please check the server.
+            </div>
+
+        `;
+
+    }
+
+    typing.style.display = "none";
+
+    sendButton.disabled = false;
+
+    input.focus();
+
+    removePhoto();
+}
+
+/* ================= ENTER ================= */
+
+input.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/* ================= CLOSE MENU ================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            !event.target.closest(".input-box") &&
+            !event.target.closest(".attach-menu")
+        ){
+
+            attachMenu.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+</script>async function newChat(){
+
+    const confirmed =
+        confirm(
+            "Start a new conversation?"
+        );
+
+    if(!confirmed){
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                "/clear",
+                {
+                    method: "POST"
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if(data.success){
+
+            location.reload();
+
+        }
+
+    }catch(error){
+
+        alert(
+            "Could not start a new chat."
+        );
+
+    }
+
+}
+
+</body>
+</html>

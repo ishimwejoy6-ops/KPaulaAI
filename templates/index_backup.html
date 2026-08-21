@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>K.Paula AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background: #212121;
+            color: #ececec;
+        }
+
+        .app {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 60px;
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 16px;
+
+            background: #212121;
+            border-bottom: 1px solid #303030;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #2f2f2f;
+
+            font-size: 19px;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .brand-name span {
+            color: #39ff14;
+        }
+
+        .online {
+            margin-left: auto;
+
+            font-size: 11px;
+            color: #7ee787;
+        }
+
+        /* ================= CHAT ================= */
+
+        .chat {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding-bottom: 25px;
+
+            scroll-behavior: smooth;
+        }
+
+        .conversation {
+            width: 100%;
+            max-width: 900px;
+
+            margin: auto;
+        }
+
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            min-height: calc(100vh - 170px);
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 20px;
+
+            text-align: center;
+        }
+
+        .welcome-icon {
+            width: 72px;
+            height: 72px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #2f2f2f;
+
+            font-size: 35px;
+
+            margin-bottom: 20px;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .welcome h1 span {
+            color: #39ff14;
+        }
+
+        .welcome p {
+            max-width: 580px;
+
+            margin: 5px auto;
+
+            color: #a8a8a8;
+
+            line-height: 1.6;
+        }
+
+        .creator {
+            margin-top: 10px !important;
+
+            font-size: 13px;
+
+            color: #777 !important;
+        }
+
+        .creator strong {
+            color: #9be88c;
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick-actions {
+            width: 100%;
+            max-width: 650px;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 10px;
+
+            margin-top: 28px;
+        }
+
+        .quick {
+            background: #2f2f2f;
+
+            border: 1px solid #3b3b3b;
+
+            border-radius: 12px;
+
+            padding: 14px;
+
+            text-align: left;
+
+            color: #d8d8d8;
+
+            cursor: pointer;
+
+            transition: .15s;
+        }
+
+        .quick:hover {
+            background: #363636;
+            border-color: #555;
+        }
+
+        .quick-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .quick-text {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* ================= MESSAGE ROW ================= */
+
+        .message {
+            width: 100%;
+
+            padding: 20px;
+
+            display: flex;
+
+            animation: appear .18s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.ai {
+            justify-content: flex-start;
+        }
+
+        /* ================= USER ================= */
+
+        .user .message-content {
+            max-width: 75%;
+
+            background: #303030;
+
+            padding: 11px 15px;
+
+            border-radius: 18px;
+
+            color: #f1f1f1;
+
+            line-height: 1.5;
+        }
+
+        /* ================= AI ================= */
+
+        .ai .message-content {
+            width: 100%;
+            max-width: 760px;
+
+            color: #ececec;
+
+            line-height: 1.65;
+        }
+
+        .ai-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            color: #aaa;
+        }
+
+        .ai-icon {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #2f2f2f;
+
+            font-size: 14px;
+        }
+
+        /* ================= MARKDOWN ================= */
+
+        .ai-text p {
+            margin: 7px 0;
+        }
+
+        .ai-text h1,
+        .ai-text h2,
+        .ai-text h3 {
+            margin: 18px 0 8px;
+
+            color: #fff;
+        }
+
+        .ai-text ul,
+        .ai-text ol {
+            padding-left: 24px;
+        }
+
+        .ai-text li {
+            margin: 6px 0;
+        }
+
+        .ai-text strong {
+            color: #fff;
+        }
+
+        .ai-text a {
+            color: #7ee787;
+        }
+
+        /* ================= CODE ================= */
+
+        .code-wrapper {
+            position: relative;
+
+            margin: 12px 0;
+
+            background: #111;
+
+            border: 1px solid #333;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .code-top {
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 10px;
+
+            background: #181818;
+
+            color: #888;
+
+            font-size: 11px;
+        }
+
+        .copy-btn {
+            border: 0;
+
+            background: #303030;
+
+            color: #ccc;
+
+            border-radius: 6px;
+
+            padding: 5px 9px;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: #404040;
+        }
+
+        pre {
+            margin: 0;
+
+            padding: 14px;
+
+            overflow-x: auto;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+        }
+
+        code {
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+        }
+
+        /* ================= TYPING ================= */
+
+        .typing {
+            display: none;
+
+            max-width: 900px;
+
+            margin: auto;
+
+            padding: 0 20px 12px;
+
+            color: #888;
+
+            font-size: 12px;
+        }
+
+        .dots span {
+            animation: blink 1.2s infinite;
+        }
+
+        .dots span:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .dots span:nth-child(3) {
+            animation-delay: .4s;
+        }
+
+        @keyframes blink {
+            0%, 60%, 100% {
+                opacity: .25;
+            }
+
+            30% {
+                opacity: 1;
+            }
+        }
+
+        /* ================= INPUT ================= */
+
+        .input-section {
+            flex-shrink: 0;
+
+            padding: 10px 15px 14px;
+
+            background: #212121;
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+        .input-box {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 6px 7px 6px 16px;
+
+            background: #2f2f2f;
+
+            border: 1px solid #454545;
+
+            border-radius: 25px;
+        }
+
+        #message {
+            flex: 1;
+
+            min-width: 0;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: #fff;
+
+            font-size: 15px;
+        }
+
+        #message::placeholder {
+            color: #888;
+        }
+
+        #send {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            border: 0;
+
+            border-radius: 50%;
+
+            background: #ececec;
+
+            color: #202020;
+
+            font-size: 18px;
+
+            cursor: pointer;
+        }
+
+        #send:disabled {
+            opacity: .4;
+            cursor: default;
+        }
+
+        .disclaimer {
+            text-align: center;
+
+            margin-top: 7px;
+
+            font-size: 10px;
+
+            color: #666;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+                height: 58px;
+            }
+
+            .message {
+                padding: 16px 13px;
+            }
+
+            .user .message-content {
+                max-width: 84%;
+            }
+
+            .welcome {
+                min-height: calc(100vh - 160px);
+
+                padding: 20px 15px;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .welcome-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 30px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .quick {
+                padding: 12px;
+            }
+
+            .ai .message-content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🤖
+            </div>
+
+            <div class="brand-name">
+                K.Paula <span>AI</span>
+            </div>
+
+        </div>
+
+        <div class="online">
+            ● Online
+        </div>
+
+    </header>
+
+
+    <!-- CHAT -->
+
+    <main id="chat" class="chat">
+
+        <div class="conversation">
+
+            <!-- WELCOME -->
+
+            <section id="welcome" class="welcome">
+
+                <div class="welcome-icon">
+                    🤖
+                </div>
+
+                <h1>
+                    Hi, I'm K.Paula <span>AI</span>
+                </h1>
+
+                <p>
+                    I'm an intelligent AI assistant created by
+                    <strong>Ishimwe Joy</strong>.
+                </p>
+
+                <p>
+                    I can help you learn, code, solve problems,
+                    generate ideas and explore many topics. 🚀
+                </p>
+
+                <p class="creator">
+                    Created by
+                    <strong>Ishimwe Joy</strong>
+                    • Powered by Groq
+                </p>
+
+
+                <div class="quick-actions">
+
+                    <div
+                        class="quick"
+                        onclick="quickMessage('Who are you and who created you?')"
+                    >
+                        <div class="quick-title">
+                            👋 About K.Paula AI
+                        </div>
+
+                        <div class="quick-text">
+                            Learn who I am
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="quick"
+                        onclick="quickMessage('What can you help me with?')"
+                    >
+                        <div class="quick-title">
+                            💡 What can you do?
+                        </div>
+
+                        <div class="quick-text">
+                            Explore my abilities
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="quick"
+                        onclick="quickMessage('Teach me something useful about programming')"
+                    >
+                        <div class="quick-title">
+                            💻 Learn programming
+                        </div>
+
+                        <div class="quick-text">
+                            Start learning
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="quick"
+                        onclick="quickMessage('Give me an interesting technology project idea')"
+                    >
+                        <div class="quick-title">
+                            🚀 Project ideas
+                        </div>
+
+                        <div class="quick-text">
+                            Build something new
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- TYPING -->
+
+    <div id="typing" class="typing">
+
+        🤖 K.Paula AI is thinking
+
+        <span class="dots">
+            <span>●</span>
+            <span>●</span>
+            <span>●</span>
+        </span>
+
+    </div>
+
+
+    <!-- INPUT -->
+
+    <section class="input-section">
+
+        <div class="input-container">
+
+            <div class="input-box">
+
+                <input
+                    id="message"
+                    type="text"
+                    placeholder="Message K.Paula AI..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="send"
+                    onclick="sendMessage()"
+                    aria-label="Send"
+                >
+                    ↑
+                </button>
+
+            </div>
+
+            <div class="disclaimer">
+                K.Paula AI can make mistakes. Check important information.
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const input = document.getElementById("message");
+const chat = document.getElementById("chat");
+const welcome = document.getElementById("welcome");
+const typing = document.getElementById("typing");
+const sendButton = document.getElementById("send");
+
+
+/* =========================================
+   MARKDOWN
+========================================= */
+
+function markdownToHTML(text) {
+
+    let html = text;
+
+    /*
+       Escape HTML first.
+       This prevents AI responses from
+       injecting unwanted HTML.
+    */
+
+    html = html
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+
+    /*
+       Code blocks
+    */
+
+    html = html.replace(
+        /```(\w+)?\n?([\s\S]*?)```/g,
+        function(match, language, code) {
+
+            const lang = language || "code";
+
+            const encoded =
+                encodeURIComponent(code.trim());
+
+            return `
+                <div class="code-wrapper">
+
+                    <div class="code-top">
+
+                        <span>${lang}</span>
+
+                        <button
+                            class="copy-btn"
+                            onclick="copyCode(this, '${encoded}')"
+                        >
+                            Copy
+                        </button>
+
+                    </div>
+
+                    <pre><code>${code.trim()}</code></pre>
+
+                </div>
+            `;
+        }
+    );
+
+
+    /*
+       Bold
+    */
+
+    html = html.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+
+    /*
+       Inline code
+    */
+
+    html = html.replace(
+        /`([^`]+)`/g,
+        "<code>$1</code>"
+    );
+
+
+    /*
+       Headings
+    */
+
+    html = html.replace(
+        /^### (.*)$/gm,
+        "<h3>$1</h3>"
+    );
+
+    html = html.replace(
+        /^## (.*)$/gm,
+        "<h2>$1</h2>"
+    );
+
+    html = html.replace(
+        /^# (.*)$/gm,
+        "<h1>$1</h1>"
+    );
+
+
+    /*
+       Numbered lists
+    */
+
+    html = html.replace(
+        /^(\d+)\.\s+(.*)$/gm,
+        "<li>$2</li>"
+    );
+
+
+    /*
+       Bullet lists
+    */
+
+    html = html.replace(
+        /^[-*]\s+(.*)$/gm,
+        "<li>$1</li>"
+    );
+
+
+    /*
+       Line breaks
+    */
+
+    html = html.replace(
+        /\n/g,
+        "<br>"
+    );
+
+
+    return html;
+}
+
+
+/* =========================================
+   ADD MESSAGE
+========================================= */
+
+function addMessage(text, type) {
+
+    if (welcome) {
+        welcome.style.display = "none";
+    }
+
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "message " + type;
+
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+
+    if (type === "ai") {
+
+        content.innerHTML = `
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <span>
+                    K.Paula AI
+                </span>
+
+            </div>
+
+            <div class="ai-text">
+                ${markdownToHTML(text)}
+            </div>
+
+        `;
+
+    } else {
+
+        content.textContent =
+            text;
+
+    }
+
+
+    row.appendChild(content);
+
+    chat
+        .querySelector(".conversation")
+        .appendChild(row);
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    return content;
+}
+
+
+/* =========================================
+   QUICK MESSAGE
+========================================= */
+
+function quickMessage(text) {
+
+    input.value = text;
+
+    sendMessage();
+
+}
+
+
+/* =========================================
+   COPY CODE
+========================================= */
+
+async function copyCode(button, encoded) {
+
+    try {
+
+        const code =
+            decodeURIComponent(encoded);
+
+        await navigator.clipboard.writeText(code);
+
+        button.textContent =
+            "Copied ✓";
+
+        setTimeout(function() {
+
+            button.textContent =
+                "Copy";
+
+        }, 1500);
+
+    } catch (error) {
+
+        button.textContent =
+            "Copy failed";
+
+    }
+
+}
+
+
+/* =========================================
+   SEND MESSAGE
+========================================= */
+
+async function sendMessage() {
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+        return;
+    }
+
+
+    addMessage(
+        message,
+        "user"
+    );
+
+
+    input.value = "";
+
+    sendButton.disabled = true;
+
+    typing.style.display =
+        "block";
+
+
+    const thinking =
+        addMessage(
+            "🤔 K.Paula AI is thinking...",
+            "ai"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/chat",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message:
+                            message
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (response.ok) {
+
+            thinking.innerHTML = `
+
+                <div class="ai-header">
+
+                    <div class="ai-icon">
+                        🤖
+                    </div>
+
+                    <span>
+                        K.Paula AI
+                    </span>
+
+                </div>
+
+                <div class="ai-text">
+                    ${markdownToHTML(
+                        data.reply ||
+                        "I didn't receive a response."
+                    )}
+                </div>
+
+            `;
+
+        } else {
+
+            thinking.innerHTML = `
+
+                <div class="ai-header">
+
+                    <div class="ai-icon">
+                        🤖
+                    </div>
+
+                    <span>
+                        K.Paula AI
+                    </span>
+
+                </div>
+
+                <div class="ai-text">
+                    ⚠️ ${data.reply || "Something went wrong."}
+                </div>
+
+            `;
+
+        }
+
+    } catch (error) {
+
+        thinking.innerHTML = `
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <span>
+                    K.Paula AI
+                </span>
+
+            </div>
+
+            <div class="ai-text">
+                ❌ I couldn't connect to the server.
+                Please check that K.Paula AI is running.
+            </div>
+
+        `;
+
+    }
+
+
+    typing.style.display =
+        "none";
+
+    sendButton.disabled =
+        false;
+
+    input.focus();
+
+}
+
+
+/* =========================================
+   ENTER TO SEND
+========================================= */
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

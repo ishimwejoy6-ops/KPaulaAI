@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #202123;
+    color: white;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   WELCOME SCREEN
+========================= */
+
+.welcome-screen {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #343541,
+            #202123 65%
+        );
+
+    padding: 20px;
+}
+
+.welcome-card {
+    width: 100%;
+    max-width: 420px;
+
+    text-align: center;
+
+    padding: 40px 25px;
+
+    background: rgba(52, 53, 65, 0.95);
+
+    border: 1px solid #4b4d5a;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+    width: 85px;
+    height: 85px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #19c37d;
+
+    font-size: 42px;
+
+    box-shadow:
+        0 0 30px rgba(25, 195, 125, 0.35);
+}
+
+.welcome-card h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: #c5c5c5;
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.creator {
+    color: #a8a8a8;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.creator strong {
+    color: #19c37d;
+}
+
+.start-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #19c37d;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.start-button:hover {
+    background: #15a86b;
+}
+
+.start-button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   MAIN APP
+========================= */
+
+.main-app {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* HEADER */
+
+.header {
+    min-height: 70px;
+
+    padding: 12px 15px;
+
+    background: #343541;
+
+    border-bottom: 1px solid #4b4d5a;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    font-size: 20px;
+}
+
+.header small {
+    color: #a9a9a9;
+}
+
+.new-chat {
+    border: none;
+
+    padding: 9px 12px;
+
+    border-radius: 9px;
+
+    background: #444654;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* CHAT */
+
+.chat {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 18px 12px;
+
+    scroll-behavior: smooth;
+}
+
+.message {
+    display: flex;
+
+    margin: 12px 0;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.ai {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 82%;
+
+    padding: 12px 15px;
+
+    border-radius: 16px;
+
+    line-height: 1.5;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+}
+
+.user .bubble {
+    background: #19c37d;
+
+    border-bottom-right-radius: 4px;
+}
+
+.ai .bubble {
+    background: #444654;
+
+    border-bottom-left-radius: 4px;
+}
+
+
+/* INPUT AREA */
+
+.input-area {
+    width: 100%;
+
+    padding: 10px;
+
+    background: #343541;
+
+    border-top: 1px solid #4b4d5a;
+
+    display: flex;
+
+    gap: 8px;
+}
+
+.input-area input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 13px 14px;
+
+    border: 1px solid #555766;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #40414f;
+
+    color: white;
+
+    font-size: 16px;
+}
+
+.input-area input::placeholder {
+    color: #999;
+}
+
+.send-button {
+    width: 48px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #19c37d;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.send-button:active {
+    transform: scale(0.95);
+}
+
+
+/* SCROLLBAR */
+
+.chat::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chat::-webkit-scrollbar-thumb {
+    background: #555766;
+
+    border-radius: 10px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .welcome-card {
+        padding: 35px 20px;
+    }
+
+    .welcome-card h1 {
+        font-size: 28px;
+    }
+
+    .header h2 {
+        font-size: 17px;
+    }
+
+    .header small {
+        font-size: 11px;
+    }
+
+    .new-chat {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .bubble {
+        max-width: 88%;
+    }
+}
